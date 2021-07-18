@@ -41,6 +41,8 @@ namespace TestTaskApi
                 opts => opts.UseSqlServer(connectionString));
             services.AddTransient<IAccountProvider, AccountProvider>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IMessageProvider, MessageProvider>();
+            services.AddTransient<IMessageService, MessageService>();
             var authConfig = AppConfiguration.GetSection("Auth");
             services.Configure<AuthConfig>(authConfig);
         }
