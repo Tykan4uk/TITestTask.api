@@ -7,6 +7,6 @@ namespace TestTaskApi.Data.Entities
         public string Id { get; set; }
         public string RoleName { get; set; }
 
-        public List<AccountEntity> AccountEntities { get; set; } = new List<AccountEntity>();
+        public List<AccountEntity> Accounts { get; set; } = new List<AccountEntity>();
     }
 }
