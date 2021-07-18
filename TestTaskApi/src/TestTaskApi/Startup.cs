@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TestTaskApi.Configurations;
 using TestTaskApi.Data;
+using TestTaskApi.DataProviders;
+using TestTaskApi.DataProviders.Abstractions;
 
 namespace TestTaskApi
 {
@@ -34,6 +36,7 @@ namespace TestTaskApi
             var connectionString = AppConfiguration["TestTaskApi:ConnectionString"];
             services.AddDbContext<TestTaskDbContext>(
                 opts => opts.UseSqlServer(connectionString));
+            services.AddTransient<IAccountProvider, AccountProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
