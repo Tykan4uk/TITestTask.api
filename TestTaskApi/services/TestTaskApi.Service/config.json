@@ -1,0 +1,5 @@
+{
+  "TestTaskApi": {
+    "ConnectionString": "Server=.\\SQLExpress;database=testtaskapi;User Id=admin;Password=admin;"
+  }
+}
