@@ -23,7 +23,7 @@ namespace TestTaskApi.DataProviders
         {
             var checkRole = await _testTaskDbContext.Roles.FirstOrDefaultAsync(f => f.RoleName == role);
 
-            if (checkRole != null)
+            if (checkRole == null)
             {
                 await _testTaskDbContext.Roles.AddAsync(new RoleEntity()
                 {
@@ -38,7 +38,7 @@ namespace TestTaskApi.DataProviders
         {
             var checkAccount = _testTaskDbContext.Accounts.FirstOrDefaultAsync(f => f.Email == email);
 
-            if (checkAccount != null)
+            if (checkAccount == null)
             {
                 var hashPassword = GenerateHashString(password);
                 await _testTaskDbContext.Accounts.AddAsync(new AccountEntity()
