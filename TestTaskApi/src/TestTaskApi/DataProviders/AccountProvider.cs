@@ -25,9 +25,11 @@ namespace TestTaskApi.DataProviders
 
             if (checkRole == null)
             {
+                var lastRole = _testTaskDbContext.Roles.OrderBy(o => o.Id).LastOrDefault() ?? new RoleEntity() { Id = 0 };
+
                 await _testTaskDbContext.Roles.AddAsync(new RoleEntity()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = lastRole.Id + 1,
                     RoleName = role
                 });
                 await _testTaskDbContext.SaveChangesAsync();
@@ -57,18 +59,7 @@ namespace TestTaskApi.DataProviders
         public async Task<AccountEntity> Authentification(string email, string password)
         {
             var hashPassword = GenerateHashString(password);
-            return await _testTaskDbContext.Accounts.Join(_testTaskDbContext.Roles, a => a.RoleId, r => r.Id, (a, r) => new AccountEntity()
-            {
-                Id = a.Id,
-                Email = a.Email,
-                Password = a.Password,
-                RoleId = a.RoleId,
-                Role = new RoleEntity()
-                {
-                    Id = r.Id,
-                    RoleName = r.RoleName
-                }
-            }).FirstOrDefaultAsync(f => f.Email == email && f.Password == hashPassword);
+            return await _testTaskDbContext.Accounts.Include(i => i.Role).FirstOrDefaultAsync(f => f.Email == email && f.Password == hashPassword);
         }
 
         private string GenerateHashString(string text)
