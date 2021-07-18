@@ -24,13 +24,8 @@
 
   <ItemGroup>
     <Folder Include="Common\Mapping\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="DataProviders\Abstractions\" />
     <Folder Include="Data\Entities\" />
     <Folder Include="Data\EntityConfigurations\" />
-    <Folder Include="Models\Responses\" />
-    <Folder Include="Models\Requests\" />
-    <Folder Include="Services\Abstractions\" />
   </ItemGroup>
 
 </Project>
