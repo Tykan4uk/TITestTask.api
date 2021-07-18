@@ -10,6 +10,7 @@ namespace TestTaskApi.Common.Mapping
         {
             CreateMap<AccountEntity, AccountModel>().ReverseMap();
             CreateMap<RoleEntity, RoleModel>().ReverseMap();
+            CreateMap<MessageEntity, MessageModel>().ReverseMap();
         }
     }
 }
