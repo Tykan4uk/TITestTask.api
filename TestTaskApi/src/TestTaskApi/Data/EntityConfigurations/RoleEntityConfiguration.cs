@@ -15,6 +15,9 @@ namespace TestTaskApi.Data.EntityConfigurations
                 .IsRequired()
                 .HasColumnName("RoleName")
                 .HasMaxLength(50);
+
+            builder.HasIndex(h => h.RoleName)
+                .IsUnique();
         }
     }
 }
