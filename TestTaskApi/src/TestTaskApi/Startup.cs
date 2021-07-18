@@ -9,6 +9,8 @@ using TestTaskApi.Configurations;
 using TestTaskApi.Data;
 using TestTaskApi.DataProviders;
 using TestTaskApi.DataProviders.Abstractions;
+using TestTaskApi.Services;
+using TestTaskApi.Services.Abstractions;
 
 namespace TestTaskApi
 {
@@ -38,6 +40,7 @@ namespace TestTaskApi
             services.AddDbContext<TestTaskDbContext>(
                 opts => opts.UseSqlServer(connectionString));
             services.AddTransient<IAccountProvider, AccountProvider>();
+            services.AddTransient<IAccountService, AccountService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
