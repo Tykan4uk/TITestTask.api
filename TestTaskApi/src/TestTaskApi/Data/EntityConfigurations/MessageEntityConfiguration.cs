@@ -9,12 +9,17 @@ namespace TestTaskApi.Data.EntityConfigurations
         public void Configure(EntityTypeBuilder<MessageEntity> builder)
         {
             builder.ToTable("Message")
-                .HasKey(h => h.UserId);
+                .HasKey(h => h.MessageId);
 
             builder.Property(p => p.Message)
                 .IsRequired()
                 .HasColumnName("Message")
                 .HasMaxLength(255);
+
+            builder.HasOne(h => h.Account)
+                .WithMany(w => w.Messages)
+                .HasForeignKey(h => h.AccountId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
