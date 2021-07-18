@@ -36,7 +36,7 @@ namespace TestTaskApi.DataProviders
 
         public async Task Registration(string email, string password, string roleName)
         {
-            var checkAccount = _testTaskDbContext.Accounts.FirstOrDefaultAsync(f => f.Email == email);
+            var checkAccount = await _testTaskDbContext.Accounts.FirstOrDefaultAsync(f => f.Email == email);
 
             if (checkAccount == null)
             {
