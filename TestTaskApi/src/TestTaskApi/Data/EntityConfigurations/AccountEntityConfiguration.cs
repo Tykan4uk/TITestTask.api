@@ -25,7 +25,7 @@ namespace TestTaskApi.Data.EntityConfigurations
                 .IsUnique();
 
             builder.HasOne(h => h.Role)
-                .WithMany(w => w.AccountEntities)
+                .WithMany(w => w.Accounts)
                 .HasForeignKey(h => h.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
