@@ -1,5 +1,11 @@
 {
   "TestTaskApi": {
     "ConnectionString": "Server=.\\SQLExpress;database=testtaskapi;User Id=admin;Password=admin;"
+  },
+  "Auth": {
+    "Issuer": "authServer",
+    "Audience": "resourceServer",
+    "Secret": "0123456789ABCDEF",
+    "TokenLifeTime": "3600"
   }
 }
