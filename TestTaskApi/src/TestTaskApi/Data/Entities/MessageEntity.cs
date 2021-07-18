@@ -2,7 +2,10 @@
 {
     public class MessageEntity
     {
-        public int UserId { get; set; }
+        public string MessageId { get; set; }
         public string Message { get; set; }
+
+        public string AccountId { get; set; }
+        public AccountEntity Account { get; set; }
     }
 }
