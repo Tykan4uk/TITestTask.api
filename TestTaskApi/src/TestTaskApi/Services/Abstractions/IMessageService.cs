@@ -7,7 +7,7 @@ namespace TestTaskApi.Services.Abstractions
     {
         Task<GetResponse> GetAsync(string accountId);
         Task<AddResponse> AddAsync(string accountId, string message);
-        Task<UpdateResponse> UpdateAsync(string messageId, string message);
-        Task<RemoveResponse> RemoveAsync(string messageId);
+        Task<UpdateResponse> UpdateAsync(string accountId, string messageId, string message);
+        Task<RemoveResponse> RemoveAsync(string accountId, string messageId);
     }
 }

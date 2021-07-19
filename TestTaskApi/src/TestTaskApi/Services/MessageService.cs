@@ -33,15 +33,15 @@ namespace TestTaskApi.Services
             return new AddResponse() { MessageId = result };
         }
 
-        public async Task<UpdateResponse> UpdateAsync(string messageId, string message)
+        public async Task<UpdateResponse> UpdateAsync(string accountId, string messageId, string message)
         {
-            var result = await _messageProvider.UpdateAsync(messageId, message);
+            var result = await _messageProvider.UpdateAsync(accountId, messageId, message);
             return new UpdateResponse() { IsUpdated = result };
         }
 
-        public async Task<RemoveResponse> RemoveAsync(string messageId)
+        public async Task<RemoveResponse> RemoveAsync(string accountId, string messageId)
         {
-            var result = await _messageProvider.RemoveAsync(messageId);
+            var result = await _messageProvider.RemoveAsync(accountId, messageId);
             return new RemoveResponse() { IsDeleted = result };
         }
     }
