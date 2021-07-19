@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TestTaskApi.Configurations;
 using TestTaskApi.Data;
@@ -45,6 +47,24 @@ namespace TestTaskApi
             services.AddTransient<IMessageService, MessageService>();
             var authConfig = AppConfiguration.GetSection("Auth");
             services.Configure<AuthConfig>(authConfig);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.RequireHttpsMetadata = false;
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = authConfig.Get<AuthConfig>().Issuer,
+
+                        ValidateAudience = true,
+                        ValidAudience = authConfig.Get<AuthConfig>().Audience,
+
+                        ValidateLifetime = true,
+
+                        IssuerSigningKey = authConfig.Get<AuthConfig>().GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -58,6 +78,7 @@ namespace TestTaskApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
