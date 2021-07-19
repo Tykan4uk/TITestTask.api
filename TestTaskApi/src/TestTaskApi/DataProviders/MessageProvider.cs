@@ -13,9 +13,9 @@ namespace TestTaskApi.DataProviders
     {
         private readonly TestTaskDbContext _testTaskDbContext;
 
-        public MessageProvider(TestTaskDbContext testTaskDbContext)
+        public MessageProvider(IDbContextFactory<TestTaskDbContext> dbContextFactory)
         {
-            _testTaskDbContext = testTaskDbContext;
+            _testTaskDbContext = dbContextFactory.CreateDbContext();
         }
 
         public async Task<List<MessageEntity>> GetAsync(string accountId)

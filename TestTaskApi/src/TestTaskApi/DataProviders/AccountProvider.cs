@@ -14,9 +14,9 @@ namespace TestTaskApi.DataProviders
     {
         private readonly TestTaskDbContext _testTaskDbContext;
 
-        public AccountProvider(TestTaskDbContext testTaskDbContext)
+        public AccountProvider(IDbContextFactory<TestTaskDbContext> dbContextFactory)
         {
-            _testTaskDbContext = testTaskDbContext;
+            _testTaskDbContext = dbContextFactory.CreateDbContext();
         }
 
         public async Task AddRole(string role)
