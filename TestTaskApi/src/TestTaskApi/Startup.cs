@@ -70,6 +70,7 @@ namespace TestTaskApi
             services.AddTransient<IMessageProvider, MessageProvider>();
             services.AddTransient<IMessageService, MessageService>();
             var authConfig = AppConfiguration.GetSection("Auth");
+            var auth = authConfig.Get<AuthConfig>();
             services.Configure<AuthConfig>(authConfig);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
@@ -78,14 +79,14 @@ namespace TestTaskApi
                     opt.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = authConfig.Get<AuthConfig>().Issuer,
+                        ValidIssuer = auth.Issuer,
 
                         ValidateAudience = true,
-                        ValidAudience = authConfig.Get<AuthConfig>().Audience,
+                        ValidAudience = auth.Audience,
 
                         ValidateLifetime = true,
 
-                        IssuerSigningKey = authConfig.Get<AuthConfig>().GetSymmetricSecurityKey(),
+                        IssuerSigningKey = auth.GetSymmetricSecurityKey(),
                         ValidateIssuerSigningKey = true
                     };
                 });
