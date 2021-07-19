@@ -31,5 +31,22 @@ namespace TestTaskApi.Services
                 }
             }
         }
+
+        protected async Task ExecuteSafe(Func<Task> action)
+        {
+            using (var transaction = _testTaskDbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    await action();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
     }
 }
