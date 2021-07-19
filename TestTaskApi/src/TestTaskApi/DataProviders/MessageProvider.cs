@@ -39,9 +39,10 @@ namespace TestTaskApi.DataProviders
             return id;
         }
 
-        public async Task<bool> UpdateAsync(string messageId, string message)
+        public async Task<bool> UpdateAsync(string accountId, string messageId, string message)
         {
-            var msg = await _testTaskDbContext.Messages.FirstOrDefaultAsync(f => f.MessageId == messageId);
+            var account = await _testTaskDbContext.Accounts.Include(i => i.Messages).FirstOrDefaultAsync(f => f.Id == accountId);
+            var msg = account.Messages.FirstOrDefault(f => f.MessageId == messageId);
             if (msg != null)
             {
                 msg.Message = message;
@@ -52,9 +53,10 @@ namespace TestTaskApi.DataProviders
             return false;
         }
 
-        public async Task<bool> RemoveAsync(string messageId)
+        public async Task<bool> RemoveAsync(string accountId, string messageId)
         {
-            var message = await _testTaskDbContext.Messages.FirstOrDefaultAsync(f => f.MessageId == messageId);
+            var account = await _testTaskDbContext.Accounts.Include(i => i.Messages).FirstOrDefaultAsync(f => f.Id == accountId);
+            var message = account.Messages.FirstOrDefault(f => f.MessageId == messageId);
             if (message != null)
             {
                 _testTaskDbContext.Messages.Remove(message);

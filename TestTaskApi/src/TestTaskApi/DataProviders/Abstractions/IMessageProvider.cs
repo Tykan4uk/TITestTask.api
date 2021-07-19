@@ -8,7 +8,7 @@ namespace TestTaskApi.DataProviders.Abstractions
     {
         Task<List<MessageEntity>> GetAsync(string accountId);
         Task<string> AddAsync(string accountId, string message);
-        Task<bool> UpdateAsync(string messageId, string message);
-        Task<bool> RemoveAsync(string messageId);
+        Task<bool> UpdateAsync(string accountId, string messageId, string message);
+        Task<bool> RemoveAsync(string accountId, string messageId);
     }
 }
