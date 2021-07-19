@@ -63,7 +63,7 @@ namespace TestTaskApi
 
             services.Configure<Config>(AppConfiguration);
             var connectionString = AppConfiguration["TestTaskApi:ConnectionString"];
-            services.AddDbContext<TestTaskDbContext>(
+            services.AddDbContextFactory<TestTaskDbContext>(
                 opts => opts.UseSqlServer(connectionString));
             services.AddTransient<IAccountProvider, AccountProvider>();
             services.AddTransient<IAccountService, AccountService>();
