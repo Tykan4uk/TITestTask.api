@@ -39,8 +39,9 @@ namespace TestTaskApi.DataProviders
         public async Task Registration(string email, string password, string roleName)
         {
             var checkAccount = await _testTaskDbContext.Accounts.FirstOrDefaultAsync(f => f.Email == email);
+            var checkRole = await _testTaskDbContext.Roles.FirstOrDefaultAsync(f => f.RoleName == roleName);
 
-            if (checkAccount == null)
+            if (checkAccount == null && checkRole != null)
             {
                 var hashPassword = GenerateHashString(password);
                 await _testTaskDbContext.Accounts.AddAsync(new AccountEntity()
@@ -48,8 +49,8 @@ namespace TestTaskApi.DataProviders
                     Id = Guid.NewGuid().ToString(),
                     Email = email,
                     Password = hashPassword,
-                    RoleId = _testTaskDbContext.Roles.FirstOrDefault(f => f.RoleName == roleName).Id,
-                    Role = await _testTaskDbContext.Roles.FirstOrDefaultAsync(f => f.RoleName == roleName)
+                    RoleId = checkRole.Id,
+                    Role = checkRole
                 });
             }
 
